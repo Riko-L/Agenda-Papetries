@@ -1,0 +1,78 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title text-center>Modifier l'évènement</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content padding>
+    <form [formGroup]="eventFormUpdate" (ngSubmit)="onSubmit()">
+        <ion-grid>
+            <ion-item>
+                <ion-icon name="share-alt"></ion-icon>
+                <ion-input padding-start="2"
+                           clearInput
+                           type="text"
+                           formControlName="title">
+                </ion-input>
+            </ion-item>
+            <br><br>
+            <ion-row>
+                <ion-col size="6">
+                    <ion-item>
+                        <ion-icon name="time"></ion-icon>
+                        <ion-datetime display-format="YYYY-MM-DD | HH:mm"
+                                      pickerFormat="YYYY-MM-DDTHH:mm"
+                                      type="date"
+                                      formControlName="start_time">
+                        </ion-datetime>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="6">
+                    <ion-item>
+                        <ion-icon name="time"></ion-icon>
+                        <ion-datetime display-format="YYYY-MM-DD | HH:mm"
+                                      pickerFormat="YYYY-MM-DDTHH:mm"
+                                      type="date"
+                                      formControlName="end_time">
+                        </ion-datetime>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <br><br>
+            <ion-item>
+                <ion-icon name="help"></ion-icon>
+                <ion-textarea padding-start="1"
+                              type="text"
+                              formControlName="description">
+                </ion-textarea>
+            </ion-item>
+            <br><br>
+            <ion-item>
+                <ion-icon name="pin"></ion-icon>
+                <ion-input padding-start="2"
+                           clearInput
+                           type="text"
+                           formControlName="location">
+                </ion-input>
+            </ion-item>
+            <br><br><br><br>
+        <ion-row>
+            <ion-col size="2" offset="7">
+                <ion-button color="primary"
+                            type="submit">
+                    Valider
+                </ion-button>
+            </ion-col>
+            <ion-col size="2">
+                <ion-button
+                        color="danger"
+                        padding-start="2"
+                        (click)="closeModal()">
+                    Annuler
+                </ion-button>
+            </ion-col>
+        </ion-row>
+        </ion-grid>
+    </form>
+</ion-content>
+
+

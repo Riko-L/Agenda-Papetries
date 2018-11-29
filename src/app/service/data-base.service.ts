@@ -38,7 +38,6 @@ export interface Response {
   rev: string;
 }
 
-
 const username ='alf74';
 const password=  'kiedis74';
 const httpOptions = {
@@ -52,16 +51,11 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class DataBaseService {
-
   
   dbcouch: string = "https://alf74.alwaysdata.net/data/alf74_agenda_papeteries/";
-
   all_docs: string = "_all_docs?include_docs=true";
 
-
-
   constructor(private http: HttpClient) {
-    
   }
 
   getAllEvents(): Observable<Events[]> {
@@ -75,17 +69,15 @@ export class DataBaseService {
     return this.http.post<Response>(this.dbcouch, event, httpOptions);
   }
 
+  putEvent(event: Events): Observable<Response> {
+    const url = `${this.dbcouch}${event._id}?rev=${event._rev}`;
+    return this.http.put<Response>(url, event, httpOptions);
+  }
+
   deleteEvent(event: Events): Observable<Response>{
     const url = `${this.dbcouch}${event._id}?rev=${event._rev}`;
     return this.http.delete<Response>(url,httpOptions);
   }
-
-
-  updateEvent(event: Events): Observable<Response> {
-    const url = `${this.dbcouch}${event._id}?rev=${event._rev}`;
-    return this.http.put<Response>(url,event,httpOptions);
-  }
-
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
