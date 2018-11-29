@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {Location} from '@angular/common';
 import { FormBuilder, Validators } from '@angular/forms';
 import { DataBaseService } from '../service/data-base.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-add-event',
@@ -10,11 +11,13 @@ import { DataBaseService } from '../service/data-base.service';
 })
 export class AddEventPage {
 
+  currentdate = moment();
+
   eventForm = this.fb.group({
     title: ['', Validators.required],
     description: ['', Validators.required],
-    start_time: ['', Validators.required],
-    end_time: ['', Validators.required],
+    start_time: [ this.currentdate.toISOString(), Validators.required],
+    end_time: [this.currentdate.add(2,'h').toISOString(), Validators.required],
     location: ['', Validators.required],
   });
 
@@ -25,7 +28,7 @@ export class AddEventPage {
 
 
   onSubmit() {
-    this.databaseService.postEvent(this.eventForm.value).subscribe(data => {
+    this.databaseService.addEvent(this.eventForm.value).subscribe(data => {
       if(data.ok === true) this.location.back();
       }
       );

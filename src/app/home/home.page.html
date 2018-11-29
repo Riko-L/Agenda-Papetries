@@ -1,5 +1,17 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+      <ion-label >{{loginName}}</ion-label>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="[ '/members/dashboard' ]">
+        <ion-icon slot="icon-only" name="md-aperture"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+   
     <ion-title>
       Agenda des Papeteries
     </ion-title>
@@ -7,7 +19,6 @@
 </ion-header>
 
 <ion-content padding>
-  <app-month-calendar (onSelectDate)="dateSelected($event)"></app-month-calendar>
-  <app-detail-events [dateCalendarInput]="dateCalendar"></app-detail-events>
+  <app-month-calendar [dateforUpdate]="dateUpdate" (onSelectDate)="dateSelected($event)"></app-month-calendar>
+  <app-detail-events [dateCalendarInput]="dateCalendar" (calendarUpdate)="updateCal($event)"></app-detail-events>
 </ion-content>
- 
