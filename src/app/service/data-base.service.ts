@@ -65,23 +65,18 @@ export class DataBaseService {
     );
   }
 
-  postEvent(event: Events):Observable<Response>{
+  addEvent(event: Events):Observable<Response>{
     return this.http.post<Response>(this.dbcouch, event, httpOptions);
   }
 
   putEvent(event: Events): Observable<Response> {
-    console.log(event);
     const url = `${this.dbcouch}${event._id}?rev=${event._rev}`;
     return this.http.put<Response>(url, event, httpOptions);
   }
 
-  deleteEvent(event: Events){
-    console.log(event);
-    return;
-    const url = `${this.dbcouch}/${event._id}`;
-    return this.http.delete<Response>(url,httpOptions).pipe(
-      catchError(this.handleError('deleteEvent', []))
-    )
+  deleteEvent(event: Events): Observable<Response>{
+    const url = `${this.dbcouch}${event._id}?rev=${event._rev}`;
+    return this.http.delete<Response>(url,httpOptions);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

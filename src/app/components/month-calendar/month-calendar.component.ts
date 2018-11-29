@@ -21,6 +21,9 @@ export class MonthCalendarComponent implements OnInit, OnChanges {
 
   @Input()
   events: Events[];
+  @Input()
+  dateforUpdate: CalendarDate;
+
   currentDate = moment().locale('fr');
   dayNames = [0,1,2,3,4,5,6].map( data => moment().day(data).format('ddd'))
   weeks: CalendarDate[][] = [];
@@ -41,12 +44,21 @@ export class MonthCalendarComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.selectedDates &&
+    if (
+        changes.selectedDates &&
         changes.selectedDates.currentValue &&
         changes.selectedDates.currentValue.length  > 1) {
       // sort on date changes for better performance when range checking
       this.sortedDates = _.sortBy(changes.selectedDates.currentValue, (m: CalendarDate) => m.mDate.valueOf());
       this.generateCalendar();
+    }
+
+    if(changes.dateforUpdate.currentValue){
+      this.currentDate = moment(this.dateforUpdate.mDate);
+      this.dataBaseService.getAllEvents().subscribe( data => {
+        this.events = data
+        this.generateCalendar();
+     });
     }
   }
 

@@ -14,19 +14,10 @@ export class DayCalendarComponent implements OnInit {
   @Input() dayDate: CalendarDate;
   events : Events[];
 
-  constructor(private dataBaseService : DataBaseService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.dataBaseService.getAllEvents().subscribe(data => this.events = data);
-    
-  }
-
-  getEventForDay(date){
-    return  this.events.find((event) => {
-      let dateStart= moment(event.start_time);
-      let dateToCompare = date.mDate;
-      return dateStart.isSame(dateToCompare, 'day')
-    })
+  
   }
 
 }
